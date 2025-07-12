@@ -3,7 +3,9 @@ const app = express();
 const mongoose = require("mongoose");
 const DB_URL = "mongodb://127.0.0.1:27017/re-wear";
 const authRoute = require('./routes/authRoute.js');
+const cors = require('cors');
 
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 const port = 8080;

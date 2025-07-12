@@ -27,10 +27,32 @@ const SignupPage: React.FC = () => {
   })
   const navigate = useNavigate()
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle signup logic here
-    console.log("Signup attempt:", formData)
+    try {
+      const response = await fetch(`http://localhost/api/auth/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.message || 'Registration failed');
+      }
+      localStorage.setItem('jwtToken', data.token);
+      console.log("Signup attempt:", formData);
+      return data;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(error.message || 'Network error occurred');
+      } else {
+        throw new Error('Network error occurred');
+      }
+    }
   }
 
   const handleInputChange = (field: string, value: string | boolean) => {

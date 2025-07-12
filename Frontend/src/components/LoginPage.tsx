@@ -16,10 +16,32 @@ const LoginPage: React.FC = () => {
   const [password, setPassword] = useState("")
   const navigate = useNavigate()
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault()
-    // Handle login logic here
-    console.log("Login attempt:", { email, password })
+    try {
+      const response = await fetch(`http://localhost/api/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({email,password})
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Registration failed');
+      }
+      localStorage.setItem('jwtToken', data.token);
+      console.log("Signup attempt:", {email,password});
+      return data;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(error.message || 'Network error occurred');
+      } else {
+        throw new Error('Network error occurred');
+      }
+    }
   }
 
   return (
