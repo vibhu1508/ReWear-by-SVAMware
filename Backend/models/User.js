@@ -34,9 +34,9 @@ const userSchema = new Schema({
             maxlength: 500
         },
         location: {
-            city: String,
-            state: String,
-            country: String
+            type: String,
+            required : true,
+            maxlength: 500,
         },
         phone: {
             type: String,
