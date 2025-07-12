@@ -391,7 +391,7 @@ export const LandingPage: React.FC = () => {
 
       {/* CTA Section */}
       <section className="py-20">
-        <div className="rewear-gradient-earth">
+        <div className="rewear-gradient-earth py-30">
           <div className="container mx-auto px-4 text-center text-white">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">Ready to Transform Your Wardrobe?</h2>
             <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
